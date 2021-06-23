@@ -1,16 +1,23 @@
 package api_rest_pokemon.br.com.murilohenrique.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
-@SequenceGenerator(name= "seq_pokemon", sequenceName ="seq_pokemon", allocationSize = 1, initialValue = 1)
+@Table(name="pokemon")
 public class Pokemon implements Serializable{
 	
 	
@@ -20,18 +27,24 @@ public class Pokemon implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	
 	private Long id;
 	
 	private Long num;
 	
 	private String name;
 	
-	private List<String> type;
+	private String type;
 	
-	private List<PreEvolution> pre_evolution;
 	
-	private List<NextEvolution> next_evolution;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "pokemon")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<PreEvolution> pre_evolution = new ArrayList<>();
+
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "pokemon")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<NextEvolution> next_evolution = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -57,11 +70,11 @@ public class Pokemon implements Serializable{
 		this.name = name;
 	}
 
-	public List<String> getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(List<String> type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
