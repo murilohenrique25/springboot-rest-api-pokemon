@@ -1,19 +1,17 @@
 package api_rest_pokemon.br.com.murilohenrique.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
@@ -27,32 +25,21 @@ public class Pokemon implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long num;
 	
 	private String name;
 	
-	private String type;
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	private List<Type> type;
 	
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "pokemon")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<PreEvolution> pre_evolution = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	private List<PreEvolution> pre_evolution;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "pokemon")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<NextEvolution> next_evolution = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	private List<NextEvolution> next_evolution;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getNum() {
 		return num;
@@ -70,11 +57,12 @@ public class Pokemon implements Serializable{
 		this.name = name;
 	}
 
-	public String getType() {
+
+	public List<Type> getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(List<Type> type) {
 		this.type = type;
 	}
 

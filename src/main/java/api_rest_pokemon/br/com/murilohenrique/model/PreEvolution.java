@@ -6,16 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(
+/*@JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
+		  property = "num")*/
 public class PreEvolution implements Serializable{
 
 	/**
@@ -24,21 +20,19 @@ public class PreEvolution implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long num;
 	
 	private String nome;
 	
-	@ManyToOne()
-	@JoinColumn(name="pokemon_id", nullable=false)
-	private Pokemon pokemon;
+	
 
-	public Long getId() {
-		return id;
+	public Long getNum() {
+		return num;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNum(Long num) {
+		this.num = num;
 	}
 
 	public String getNome() {
@@ -49,14 +43,7 @@ public class PreEvolution implements Serializable{
 		this.nome = nome;
 	}
 
-	public Pokemon getPokemon() {
-		return pokemon;
-	}
 
-	public void setPokemon(Pokemon pokemon) {
-		this.pokemon = pokemon;
-	}
-	
 	
 
 }

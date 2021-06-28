@@ -7,12 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
-/*@JsonIdentityInfo(
-generator = ObjectIdGenerators.PropertyGenerator.class, 
-property = "num")*/
-public class NextEvolution implements Serializable{
+public class Type implements Serializable{
 
 	/**
 	 * 
@@ -21,29 +17,25 @@ public class NextEvolution implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long num;
+	private Long id;
 	
-	private String nome;
+	private String type;
 
-
-
-	public Long getNum() {
-		return num;
+	public Long getId() {
+		return id;
 	}
 
-	public void setNum(Long num) {
-		this.num = num;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getType() {
+		return type;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setType(String type) {
+		this.type = type;
 	}
-
 	
 	
-
 }

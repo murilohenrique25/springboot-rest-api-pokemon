@@ -16,7 +16,8 @@ public interface PokemonRepository extends JpaRepository<Pokemon, Long >{
 	
 	Page<Pokemon> findAll(Pageable page);
 	
-	@Query(value = "select u from Pokemon u where trim(u.type) like %?1%")
-	List<Pokemon> buscarPorType(String type);
+	@Query(value = "select * from pokemon e inner join pokemon_type pt on e.num = pt.pokemon_num inner join type c on c.id = pt.type_id where c.type like %?1%", nativeQuery = true)
+	List<Pokemon> findAllType(String type);
+	
 
 }
