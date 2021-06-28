@@ -2,6 +2,8 @@
 Api para consultar dados pokemon
 
 ROTAS CRIADAS
+
+
 Inserir
 http://localhost:8000/pokemon
 
